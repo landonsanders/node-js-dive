@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <h1>Index</h1>
+            <div id="output"></div>
+            <div>
+                <input type="" id="message"><button id="send-button">Send</button>
+            </div>
+            <script src="/socket.io/socket.io.js"></script>   
+            <script>
+                var socket = io.connect();
+                socket.on('data', function (data) {
+                    console.log(data);
+                });
+                
+                socket.on('connect', function () {
+                    socket.emit('addme', prompt('You are?'));
+                });
+                
+                socket.on('chat', function (user, message) {
+                    var p = document.createElement('p');
+                    p.innerHTML = user + ': ' + message;
+                    var el = document.getElementById('output');
+                    el.appendChild(p);
+                });
+                
+                var input = document.getElementById('message');
+                var button = document.getElementById('send-button');
+                
+                button.onclick = function (e) {
+                    var value = input.value;
+                    console.log(value);
+                    input.value = '';
+                    
+                    socket.emit('sendchat', value);
+                };
+            </script>
+    </body>
+</html>

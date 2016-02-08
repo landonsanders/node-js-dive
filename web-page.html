@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Web Page</title>
+            <script>
+                window.onload = function () {
+                    console.log(document.getElementsByTagName('h1')[0].innerHTML);
+                };
+            </script>
+        </head>
+        <body>
+            <div class="container">
+                <div id="header">
+                    <h1>Web Page</h1>
+                </div>
+                <div id="content">
+                    <form>
+                        <input type="checkbox" name="terms" value="ok">
+                        <input type="radio" name="job" value="programmer">
+                        <input type="radio" name="job" value="designer">
+                        <input type="radio" name="job" value="coder">
+                        <input type="text" name="username" value="Moe Q. Doe">
+                        <div id="error"></div>
+                        <input type="submit">
+                    </form>
+                </div>
+            </div>
+            <script>
+                var form = document.forms[0];
+                var data = [], result = [], len, index, el;
+                
+                form.onsubmit = function (e) {
+                    e.preventDefault();
+                    
+                    console.log('Submit!');
+                    len = e.target.children.length, index = 0;
+                    
+                    for (index, len; index < len; index = index + 1) {
+                        if (e.target.children[index].type === 'text') {
+                            console.log(e.target.children[index]);
+                            data.push(e.target.children[index]);
+                        }
+                    }
+                    
+                    index = 0, len = data.length;
+                    
+                    for (index, len; index < len; index = index + 1) {
+                        el = document.getElementById('error');
+                        
+                        if (data[index].value === '') {
+                            el.innerHTML = '<font color="red">This field has to be filled.</font>'
+                        } else {
+                            el.innerHTML = '';
+                        }
+                    }
+                    e.target.submit();
+                };
+            </script>
+        </body>
+    </html>
+    
+    
+    
+    
+    
+    
+    
